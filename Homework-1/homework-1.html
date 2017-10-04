@@ -12,6 +12,7 @@
         background: green;
       }
     </style>
+        <script src="currency.js"></script>
   </head>
   <body>
     <h1>Welcome to <span>iPhone</span> Store</h1>
@@ -124,7 +125,25 @@
       // currency.convert(price) - переводить ціну в гривні
       // приклад ковертації
       // 100$ => 2500uah
+      var wholePrice, numberPrice, uahPrice;
+
+      var data = {
+        name: "ua hryvnya",
+        rank: 25,
+        symbol: "uah"
+      };
+
+      currency.set(data)
+      
+      for (var i = 0; i < outerUl.length; i++) {
+            if (outerUl[i].nodeName == "UL") {
+              wholePrice = outerUl[i].getElementsByTagName("ul")[0].lastElementChild.children[0].textContent;
+              numberPrice = parseInt(wholePrice);
+              uahPrice = currency.convert(numberPrice);
+              outerUl[i].getElementsByTagName("ul")[0].lastElementChild.children[0].textContent = uahPrice;
+            }
+        }
+
     </script>
-    <script src="currency.js"></script>
   </body>
 </html>`
