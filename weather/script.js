@@ -67,5 +67,55 @@ var button = document.querySelector(".update");
 
 button.onclick = updateForecast;
 
-setInterval(updateForecast, 300000)
+setInterval(updateForecast, 300000);
 
+// function addNewCard(newCity) {
+//     var cardList = document.querySelector(".card-wrapper");
+
+//     var newCard = document.createElement('section');
+
+//     var cityClass = "card-" + newCity; 
+//     newCard.className = "card anim-flip anim-flip-card-2";
+//     newCard.classList.add(cityClass);
+
+//     var header = "<header>" + "<h1 class='card-header'>" + newCity + "</h1>" + "</header>";
+//     var temp = "<p class='card-temp box-highlight'>" + "</p>";
+//     var weatherPic = "<div class='weather-pic'>" + "</div>";
+//     var cardInfo = "<p class='card-info'>" + "</p>";
+
+//     newCard.innerHTML = header + "" + temp + "" + weatherPic + "" + cardInfo;
+//     cardList.appendChild(newCard);
+// }
+
+function cloneNewCard(newCity) {
+    var cardList = document.querySelector(".card-wrapper");
+
+    var parentCard = document.querySelector(".card-kiev");
+
+    var newCard = parentCard.cloneNode(true);
+
+    var cityClass = "card-" + newCity; 
+    
+    newCard.classList.remove("card-kiev");
+    
+    newCard.classList.add(cityClass);
+    newCard.querySelector(".card-header").textContent = newCity;
+
+    cardList.appendChild(newCard);
+}
+
+function addNewCity() {
+    
+    var newCity;
+    newCity = document.querySelector(".new-city-name").value;
+    
+    // addNewCard(newCity);
+
+    cloneNewCard(newCity);
+    forecast(newCity);
+
+}
+
+var showWeatherButton = document.querySelector(".show-weather");
+
+showWeatherButton.onclick = addNewCity;
