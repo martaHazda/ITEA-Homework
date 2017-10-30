@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+  <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="products">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card productCard">
+                                <img class="card-img-top img-thumbnail" src="img/prodImage.png" alt="">
+                                <div class="card-body">
+                                    <h4 class="card-title">iPhone 5</h4>
+                                    <p class="card-text text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis voluptas sequi repellendus dolorem </p>
+                                    <button class="btn btn-primary float-right myButton">Купити</button>
+                                    <p class="card-text font-weight-bold priceTag">300$</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="card productCard">
+                                <img class="card-img-top img-thumbnail" src="img/prodImage.png" alt="">
+                                <div class="card-body">
+                                    <h4 class="card-title">iPhone 6</h4>
+                                    <p class="card-text text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis voluptas sequi repellendus dolorem </p>
+                                    <button class="btn btn-primary float-right">Купити</button>
+                                    <p class="card-text font-weight-bold priceTag">300$</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card productCard">
+                                <img class="card-img-top img-thumbnail" src="img/prodImage.png" alt="">
+                                <div class="card-body">
+                                    <h4 class="card-title">iPhone 7</h4>
+                                    <p class="card-text text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis voluptas sequi repellendus dolorem </p>
+                                    <button class="btn btn-primary float-right">Купити</button>
+                                    <p class="card-text font-weight-bold priceTag">300$</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="card productCard">
+                                <img class="card-img-top img-thumbnail" src="img/prodImage.png" alt="">
+                                <div class="card-body">
+                                    <h4 class="card-title">iPhone 8</h4>
+                                    <p class="card-text text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis voluptas sequi repellendus dolorem </p>
+                                    <button class="btn btn-primary float-right">Купити</button>
+                                    <p class="card-text font-weight-bold priceTag">300$</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-primary">Cart</div>
+                    <div class="card-body">
+                    <table class="table cart-items">
+                        <thead>
+                        <tr>
+                          <th>Назва</th>
+                          <th>Ціна</th>
+                        </tr>
+                        </thead>
+                        <tbody class="itemList">
+                        </tbody>
+                        </table>
+                        <p class="empty-cart-message"></p>
+                        <div class="cart-buy-block">
+                            <p class="card-text text-center">У вас в корзині <span class="counter"></span> товара на суму <span class="font-weight-bold total-sum"></span>$</p>
+                            <button class="btn btn-danger clear-cart">Очистити корзину</button>
+                            <button class="btn btn-primary">Оформити</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var price, productName, newCartItem, productsInCart = [], productCounter = 0, productSum = 0, removedPrice = 0;
+        var product = document.querySelector(".products");
+        
+
+        function countProductsInCart() {
+            return productCounter++;
+        };
+
+        function countRemovedProductsFromCart() {
+            return productCounter--;
+        };
+
+        function clearCount() {
+            productCounter = 0;
+        }
+
+        function totalPrice(price) {
+            productSum+= parseInt(price);
+            document.querySelector(".total-sum").textContent = productSum;
+        };
+
+        function removedProductTotalPrice(removedPrice) {
+            productSum-= parseInt(removedPrice);
+            document.querySelector(".total-sum").textContent = productSum;
+        };
+
+        function clearPrice() {
+            productSum = 0;
+        }
+
+        function emptyCart() {
+            document.querySelector(".empty-cart-message").style.display = "block";
+            document.querySelector(".empty-cart-message").textContent = "Ваша корзина пуста";
+            document.querySelector(".cart-buy-block").style.display = "none";
+        };
+
+        function notEmptyCard() {
+            document.querySelector(".empty-cart-message").style.display = "none";
+            document.querySelector(".cart-buy-block").style.display = "block";
+        }
+
+        emptyCart();
+
+
+        product.onclick = function(event) {
+            
+            var target = event.target;
+            if (target.tagName != "BUTTON") return;
+
+                newCartItem = document.createElement("tr");
+                productName = target.parentNode.firstElementChild.textContent;
+                price = target.parentNode.lastElementChild.textContent;
+
+                newCartItem.innerHTML ="<td>" + productName + "</td>" + "<td class='cart-item-price'>" + price +"</td>" + "<td>"+
+                                "<button class='btn btn-outline-secondary'>" + "Видалити" + "</button>" + "</td>";
+                document.querySelector(".itemList").appendChild(newCartItem);
+                countProductsInCart();
+
+                document.querySelector(".counter").textContent = productCounter;
+                totalPrice(price);
+                if (document.querySelector(".cart-buy-block").style.display = "none") {
+                    notEmptyCard();
+                }
+        }
+
+        var removeProduct = document.querySelector(".cart-items");
+
+        removeProduct.onclick = function(event) {
+            var target = event.target;
+
+            if (target.tagName != "BUTTON") return;
+                var removerElement = target.parentNode.parentNode;
+                removedPrice = target.parentNode.previousSibling.textContent;
+                document.querySelector(".itemList").removeChild(removerElement);
+                countRemovedProductsFromCart();
+                document.querySelector(".counter").textContent = productCounter;
+                removedProductTotalPrice(removedPrice);
+                if (productCounter == 0) {
+                    emptyCart();
+                }
+
+        }
+
+        var removeAll = document.querySelector(".clear-cart");
+
+        removeAll.onclick = function() {
+            var itemList = document.querySelector(".itemList");
+            while(itemList.lastChild) {
+                itemList.removeChild(itemList.lastChild);
+            }
+            emptyCart();
+            clearPrice();
+            clearCount();
+
+        }
+
+
+
+
+    </script>
+    </body>
+</html>

@@ -1,0 +1,7 @@
+.productCard{
+    max-width: 320px;
+    margin-bottom: 20px;
+}
+.priceTag {
+    clear: right;
+}
